@@ -1,4 +1,6 @@
+import { useEffect, useState } from "react";
 import "./App.css";
+import axios from "axios";
 
 function App() {
   const [amount, setAmount] = useState(1);
@@ -34,10 +36,11 @@ function App() {
 
   const handleFromCurrencyChange = (e) => {
     setFromCurrency(e.target.value);
-  }
+  };
   const handleToCurrencyChange = (e) => {
     setToCurrency(e.target.value);
-  }
+  };
+
   return (
     <>
       <div className="currency-converter">
@@ -46,12 +49,17 @@ function App() {
           <h1>Currency Converter</h1>
           <div className="input-container">
             <label htmlFor="amt">Amount :</label>
-            <input type="number" id="amt" />
+            <input
+              type="number"
+              id="amt"
+              value={amount}
+              onChange={handleAmountChange}
+            />
           </div>
 
           <div className="input-container">
             <label htmlFor="fromCurrency">From Currency :</label>
-            <select id="fromCurrency">
+            <select id="fromCurrency" value={fromCurrency} onChange={handleFromCurrencyChange}>
               <option value="USD">USD - United States Dollar</option>
               <option value="EUR">EUR - Euro</option>
               <option value="GBP">GBP - British Pound Sterling</option>
@@ -66,8 +74,8 @@ function App() {
           </div>
 
           <div className="input-container">
-            <label htmlFor="fromCurrency">From Currency :</label>
-            <select id="fromCurrency">
+            <label htmlFor="toCurrency">To Currency :</label>
+            <select id="toCurrency" value={toCurrency} onChange={handleToCurrencyChange}>
               <option value="USD">USD - United States Dollar</option>
               <option value="EUR">EUR - Euro</option>
               <option value="GBP">GBP - British Pound Sterling</option>
@@ -78,15 +86,19 @@ function App() {
               <option value="INR">INR - Indian Rupee</option>
               <option value="BRL">BRL - Brazilian Real</option>
               <option value="ZAR">ZAR - South African Rand</option>
+              <option value="LKR">LKR - Sri Lankan Rupees</option>
             </select>
           </div>
 
           <div className="result">
-            <p> 1 INR is equal to 83.25 USD</p>
+            <p>
+              {" "}
+              {amount} {fromCurrency} is equal to {convertedAmount} {toCurrency}
+            </p>
           </div>
         </div>
       </div>
     </>
-  )
+  );
 }
 export default App;
