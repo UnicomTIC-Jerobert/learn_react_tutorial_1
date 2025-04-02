@@ -8,7 +8,8 @@
 }
 
 body {
-  background-color: O#555;
+  background-color: #555;
+  justify-content: center;
 }
 
 .calendar {
@@ -19,13 +20,13 @@ body {
   padding: 5px;
 }
 
-header {
+.header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #3498db;
   color: #fff;
-  padding: 5px;
+  padding: 8px;
 }
 
 button {
@@ -34,12 +35,11 @@ button {
   cursor: pointer;
   font-size: 20px;
   color: #fff;
-
 }
 
 select {
   font-size: 18px;
-  padding: 0px 8px;
+  padding: 4px 8px;
   border: 1px solid #3498db;
   border-radius: 4px;
   margin: 0 10px;
@@ -60,6 +60,7 @@ select {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   gap: 8px;
+  color: #333;
 }
 
 .day,
@@ -77,9 +78,11 @@ select {
 .day:hover {
   background-color: #3498db;
   color: #fff;
+  transition: background-color 0.3s ease;
+  transform: scale(1.05);
 }
 
-.current{
+.current {
   background-color: tomato;
   color: #fff;
 }
