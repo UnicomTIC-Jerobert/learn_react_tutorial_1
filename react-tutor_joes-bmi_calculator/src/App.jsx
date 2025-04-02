@@ -4,15 +4,17 @@ import "./App.css";
 function App() {
   const [height, setHeight] = useState("");
   const [weight, setWeight] = useState("");
+
   const [bmi, setBmi] = useState(null);
   const [bmiStatus, setBmiStatus] = useState("");
+
   const [errorMessage, setErrorMessage] = useState("");
 
   const calculateBmi = () => {
     const isValidHeight = /^\d+$/.test(height);
     const isValidWeight = /^\d+$/.test(weight);
 
-    if (height && weight) {
+    if (isValidHeight && isValidWeight) {
       const heightInMeters = height / 100;
       const bmiValue = weight / (heightInMeters * heightInMeters);
       setBmi(bmiValue.toFixed(2));
@@ -25,16 +27,21 @@ function App() {
       } else {
         setBmiStatus("Obese");
       }
+      setErrorMessage("");
     } else {
       setBmi(null);
       setBmiStatus("");
+      setErrorMessage("Please enter valid height and weight");
     }
   };
 
   const clearAll = () => {
+    setHeight("");
+    setWeight("");  
     setBmi(null);
     setBmiStatus("");
-  }
+    setErrorMessage("");
+  };
 
   return (
     <>
@@ -42,19 +49,33 @@ function App() {
         <div className="box"></div>
         <div className="data">
           <h1>BMI Calculator</h1>
+          {errorMessage && <p className="error">{errorMessage}</p>}
           <div className="input-container">
             <label htmlFor="height">Height (cm) :</label>
-            <input type="text" id="height" />
+            <input
+              type="text"
+              value={height}
+              id="height"
+              onChange={(e) => setHeight(e.target.value)}
+            />
           </div>
           <div className="input-container">
             <label htmlFor="weight">Weight (kg) :</label>
-            <input type="text" id="weight" />
+            <input
+              type="text"
+              value={weight}
+              id="weight"
+              onChange={(e) => setWeight(e.target.value)}
+            />
           </div>
-          <button>Calculate BMI</button>
-          <div className="result">
-            <p>Your BMI is: 28.3</p>
-            <p>Status: Over Weight</p>
-          </div>
+          <button onClick={calculateBmi}>Calculate BMI</button>
+          <button onClick={clearAll}>Clear</button>
+          {bmi != null && (
+            <div className="result">
+              <p>Your BMI is: {bmi}</p>
+              <p>Status: {bmiStatus}</p>
+            </div>
+          )}
         </div>
       </div>
     </>
